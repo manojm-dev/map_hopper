@@ -48,6 +48,13 @@ void MultiMapGoalActionServer::executeCB(const multimap_nav::SendGoalGoalConstPt
         feedback.status_msg = "Robot is in the same map...";
         action_server_.publishFeedback(feedback);
 
+        if (!isPoseWithinMapBounds(goal->goal_pose.pose)) {
+            ROS_ERROR("Goal pose is outside the bounds of the specified map: %s", goal->map_name.c_str());
+            result.success = false;
+            action_server_.setAborted(result, "Goal pose is outside the target map boundaries.");
+            return;
+        }        
+
         feedback.status_msg = "Navigating to goal...";
         action_server_.publishFeedback(feedback);
 
@@ -91,6 +98,13 @@ void MultiMapGoalActionServer::executeCB(const multimap_nav::SendGoalGoalConstPt
         action_server_.publishFeedback(feedback);
         localizeRobot(wormhole_pose);
 
+        if (!isPoseWithinMapBounds(goal->goal_pose.pose)) {
+            ROS_ERROR("Goal pose is outside the bounds of the specified map: %s", goal->map_name.c_str());
+            result.success = false;
+            action_server_.setAborted(result, "Goal pose is outside the target map boundaries.");
+            return;
+        }        
+
         feedback.status_msg = "Navigating to the goal location...";
         action_server_.publishFeedback(feedback);
         bool success = sendGoalPose(goal->goal_pose);
@@ -105,6 +119,35 @@ void MultiMapGoalActionServer::executeCB(const multimap_nav::SendGoalGoalConstPt
         }
     }
 }
+
+bool MultiMapGoalActionServer::isPoseWithinMapBounds(const geometry_msgs::Pose& pose) {
+
+    nav_msgs::MapMetaData meta_data;
+
+    // Wait for one message from /map_metadata
+    auto msg = ros::topic::waitForMessage<nav_msgs::MapMetaData>("/map_metadata", ros::Duration(3.0));
+    if (msg == nullptr) {
+        ROS_ERROR("Failed to receive map metadata from /map_metadata");
+    }
+
+    meta_data = *msg;
+
+    double origin_x = meta_data.origin.position.x;
+    double origin_y = meta_data.origin.position.y;
+    double resolution = meta_data.resolution;
+    int width = meta_data.width;
+    int height = meta_data.height;
+
+    MapBounds bounds;
+    bounds.min_x = origin_x;
+    bounds.min_y = origin_y;
+    bounds.max_x = origin_x + width * resolution;
+    bounds.max_y = origin_y + height * resolution;
+
+    return (pose.position.x >= bounds.min_x && pose.position.x <= bounds.max_x &&
+            pose.position.y >= bounds.min_y && pose.position.y <= bounds.max_y);
+}
+
 
 // Retrieve the wormhole pose from SQLite DB
 std::optional<geometry_msgs::PoseStamped> MultiMapGoalActionServer::getWormholePose(

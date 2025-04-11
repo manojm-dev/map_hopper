@@ -17,6 +17,12 @@
 #include <iostream>
 #include <optional>
 
+struct MapBounds {
+    double min_x;
+    double max_x;
+    double min_y;
+    double max_y;
+};
 
 class MultiMapGoalActionServer
 {
@@ -54,6 +60,12 @@ private:
     std::string initial_pose_topic_;
     std::string frame_id_;
 
+    /**
+     * @brief Check if a pose is within the bounds of the current map
+     * @param pose Pose to check
+     * @return True if the pose is within bounds, False otherwise
+     */
+    bool isPoseWithinMapBounds(const geometry_msgs::Pose& pose);
 
     /**
      * @brief Function to get the wormhole points between two maps
