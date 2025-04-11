@@ -1,0 +1,11 @@
+# Goal location
+geometry_msgs/PoseStamped goal_pose
+string map_name
+
+---
+# Result
+bool success
+
+---
+# Feedback
+string status_msg
