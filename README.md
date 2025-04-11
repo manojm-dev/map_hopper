@@ -2,6 +2,8 @@
 
 <kbd> <img src="./media/multimap_topview.png" /> </kbd>
 
+[View Demo Video](https://drive.google.com/file/d/12SjEAlQ3jb8CdyYlcRdcOOtHJsZIajHm/view?usp=sharing)
+
 A ROS package that enables seamless navigation across multiple maps using wormholes (predefined transformation points). Ideal for environments split into separate maps (like rooms or floors), this package teleports the robot between maps while maintaining localization.
 
 ---
@@ -90,7 +92,7 @@ cd ~/catkin_ws/src
 git clone https://github.com/manojm-dev/multimap_nav.git
 
 # AR100
-https://github.com/manojm-dev/AR100
+git clone https://github.com/manojm-dev/AR100.git
 ```
 
 ### 📦 Installing Dependencies
