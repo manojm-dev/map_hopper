@@ -35,11 +35,15 @@ It includes:
 
 - Listens for goals that include:
   - Target pose `(x, y, yaw)`
-  - Target map name (e.g., `"room1"`, `"lab2"`)
+  - Target map name (e.g., `"room1"`, `"room2"`)
 - Checks if robot needs to **switch maps**.
-  - If yes: queries wormhole info from an SQLite DB.
-  - Publishes the new map path → triggers map switch.
-  - Publishes robot's initial pose in new map frame.
+  - If **no**: 
+    - Checks if target pose is within bounds of the new map.
+    - Then directly sends goal to `move_base` in the current map.
+  - If **yes**: queries wormhole info from an SQLite DB.
+    - Publishes the new map path → triggers map switch.
+    - Checks if target pose is within bounds of the new map.
+    - Publishes robot's initial pose in new map frame.
 - Sends goal to `move_base` once localization is stable.
 - Reports success or failure through action result.
 
@@ -141,8 +145,13 @@ rosrun multimap_nav multi_map_goal_client <x> <y> <yaw> <map_name>
 Example:
 ```bash
 rosrun multimap_nav multi_map_goal_client 1.0 2.5 1.57 room2
+rosrun multimap_nav multi_map_goal_client 12 6 0 room2
+rosrun multimap_nav multi_map_goal_client 22 5 0 room3
+rosrun multimap_nav multi_map_goal_client 22 12 0 room4
+rosrun multimap_nav multi_map_goal_client 12 12 0 room5
+rosrun multimap_nav multi_map_goal_client 5 12 0 room6
 ```
-
+> Note we as of now we can only able to navigate to adjacent maps, i.e., maps connected by a wormhole.
 ---
 
 
