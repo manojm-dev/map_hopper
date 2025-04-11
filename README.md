@@ -48,11 +48,6 @@ It includes:
 - Sends an action goal to `MultiMapGoalActionServer`
 - Waits for result and prints status
 
-
-It includes:
-- **`MultiMapGoalActionServer`** – A ROS action server that handles navigation goals across maps.
-- **`multi_map_goal_client`** – A command-line tool to send navigation goals to the server.
-
 ---
 
 ## 📂 Package Structure
@@ -75,6 +70,7 @@ multimap_nav/
 
 ---
 
+
 ## 🌐 Dependencies
 - ROS (tested on Noetic)
 - move_base
@@ -85,14 +81,13 @@ multimap_nav/
 
 ## ⚖️ Installation and Building with Additional Packages
 
-
 ### ☁️ Cloning 
 
 ```
 cd ~/catkin_ws/src
 
 # Multi Map Navigation Package
-git clone https://github.com/manojm-dev/map_hopper 
+git clone https://github.com/manojm-dev/multimap_nav.git
 
 # AR100
 https://github.com/manojm-dev/AR100
@@ -114,6 +109,7 @@ source devel/setup.bash
 ```
 
 ---
+
 
 ## ⚙️ Usage
 
@@ -146,6 +142,7 @@ rosrun multimap_nav multi_map_goal_client 1.0 2.5 1.57 room2
 ```
 
 ---
+
 
 ## 📋 SQL Schema Overview
 
@@ -197,12 +194,15 @@ INSERT INTO map_wormhole_relations (
 
 ---
 
+
 ## 🚫 Limitations
 - No support for dynamic map generation.
 - Wormholes must be manually defined.
 - Assumes perfect localization post-teleport (relies on AMCL recovery).
 
+
 ---
+
 
 ## 📅 Future Improvements
 - Auto-generation of wormhole candidates.
