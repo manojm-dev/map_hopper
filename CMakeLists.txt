@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(multimap_nav)
+project(multimap_navigation)
 
 add_compile_options(-std=c++17)
 

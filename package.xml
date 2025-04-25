@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>multimap_nav</name>
+  <name>multimap_navigation</name>
   <version>0.0.0</version>
-  <description>The multimap_nav package</description>
+  <description>The multimap_navigation package</description>
 
   <maintainer email="devuser@todo.todo">devuser</maintainer>
   <license>TODO</license>
-  <!-- <url type="website">http://wiki.ros.org/multimap_nav</url> -->
+  <!-- <url type="website">http://wiki.ros.org/multimap_navigation</url> -->
   <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
 
 

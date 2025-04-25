@@ -58,7 +58,7 @@ It includes:
 
 ## 📂 Package Structure
 ```
-multimap_nav/
+multimap_navigation/
 ├── CMakeLists.txt
 ├── package.xml
 ├── README.md              
@@ -67,7 +67,7 @@ multimap_nav/
 ├── data/
 │   ├── wormholes.db     
 │   └── wormholes.sql    
-├── include/multimap_nav/
+├── include/multimap_navigation/
 │   └── MultiMapGoalActionServer.hpp
 ├── src/
 │   ├── MultiMapGoalActionClient.cpp
@@ -93,7 +93,7 @@ multimap_nav/
 cd ~/catkin_ws/src
 
 # Multi Map Navigation Package
-git clone https://github.com/manojm-dev/multimap_nav.git
+git clone https://github.com/manojm-dev/multimap_navigation.git
 
 # AR100
 git clone https://github.com/manojm-dev/AR100.git
@@ -133,23 +133,23 @@ roslaunch anscer_navigation anscer_navigation.launch map_name:=room1
 
 ### 3. Start the Action Server
 ```bash
-rosrun multimap_nav multi_map_goal_server
+rosrun multimap_navigation multi_map_goal_server
 ```
 > Ensure that parameters such as `wormhole_db`, `maps_path`, and others are correctly set via the launch file or the parameter server. If any related files or configurations are modified, update these parameters accordingly to maintain seamless functionality.
 
 ### 2. Send Navigation Goal
 ```bash
-rosrun multimap_nav multi_map_goal_client <x> <y> <yaw> <map_name>
+rosrun multimap_navigation multi_map_goal_client <x> <y> <yaw> <map_name>
 ```
 
 Example:
 ```bash
-rosrun multimap_nav multi_map_goal_client 1.0 2.5 1.57 room2
-rosrun multimap_nav multi_map_goal_client 12 6 0 room2
-rosrun multimap_nav multi_map_goal_client 22 5 0 room3
-rosrun multimap_nav multi_map_goal_client 22 12 0 room4
-rosrun multimap_nav multi_map_goal_client 12 12 0 room5
-rosrun multimap_nav multi_map_goal_client 5 12 0 room6
+rosrun multimap_navigation multi_map_goal_client 1.0 2.5 1.57 room2
+rosrun multimap_navigation multi_map_goal_client 12 6 0 room2
+rosrun multimap_navigation multi_map_goal_client 22 5 0 room3
+rosrun multimap_navigation multi_map_goal_client 22 12 0 room4
+rosrun multimap_navigation multi_map_goal_client 12 12 0 room5
+rosrun multimap_navigation multi_map_goal_client 5 12 0 room6
 ```
 > Note we as of now we can only able to navigate to adjacent maps, i.e., maps connected by a wormhole.
 ---

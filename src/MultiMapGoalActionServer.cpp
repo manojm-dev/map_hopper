@@ -1,4 +1,4 @@
-#include "multimap_nav/MultiMapGoalActionServer.hpp"
+#include "multimap_navigation/MultiMapGoalActionServer.hpp"
 
 int main(int argc, char **argv)
 {
@@ -21,7 +21,7 @@ MultiMapGoalActionServer::MultiMapGoalActionServer(const std::string& name)
     ros::NodeHandle pnh("~");
 
     // Load parameters with fallback defaults
-    pnh.param<std::string>("wormhole_db", wormhole_db_path_, ros::package::getPath("multimap_nav") + "/data/wormholes.db");
+    pnh.param<std::string>("wormhole_db", wormhole_db_path_, ros::package::getPath("multimap_navigation") + "/data/wormholes.db");
     pnh.param<std::string>("maps_path", maps_path_, ros::package::getPath("anscer_navigation") + "/maps");
     pnh.param<std::string>("change_map_service", change_map_service_, "change_map");
     pnh.param<std::string>("clear_costmaps_service", clear_costmaps_service_, "/move_base_node/clear_costmaps");
@@ -38,10 +38,10 @@ MultiMapGoalActionServer::MultiMapGoalActionServer(const std::string& name)
 MultiMapGoalActionServer::~MultiMapGoalActionServer() {}
 
 // Called when an action goal is received
-void MultiMapGoalActionServer::executeCB(const multimap_nav::SendGoalGoalConstPtr& goal)
+void MultiMapGoalActionServer::executeCB(const multimap_navigation::SendGoalGoalConstPtr& goal)
 {
-    multimap_nav::SendGoalFeedback feedback;
-    multimap_nav::SendGoalResult result;
+    multimap_navigation::SendGoalFeedback feedback;
+    multimap_navigation::SendGoalResult result;
 
     if (current_map_ == goal->map_name) {
         // Same map, directly go to the goal

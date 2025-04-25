@@ -1,11 +1,11 @@
 #include <ros/ros.h>
 #include <actionlib/client/simple_action_client.h>
 #include <geometry_msgs/PoseStamped.h>
-#include <multimap_nav/SendGoalAction.h>
+#include <multimap_navigation/SendGoalAction.h>
 #include <tf/tf.h>
 
 // Typedef for cleaner code (SimpleActionClient to handle SendGoalAction)
-typedef actionlib::SimpleActionClient<multimap_nav::SendGoalAction> Client;
+typedef actionlib::SimpleActionClient<multimap_navigation::SendGoalAction> Client;
 
 // Struct to neatly pack goal input
 struct GoalInput
@@ -38,7 +38,7 @@ GoalInput getInput(int argc, char **argv)
 
 // Called when goal finishes (either succeeded, aborted, etc.)
 void doneCallback(const actionlib::SimpleClientGoalState &state,
-                  const multimap_nav::SendGoalResultConstPtr &result)
+                  const multimap_navigation::SendGoalResultConstPtr &result)
 {
     ROS_INFO("Goal finished with state: %s", state.toString().c_str());
     if (result->success)
@@ -58,7 +58,7 @@ void activeCallback()
 }
 
 // Called whenever feedback is received from the server
-void feedbackCallback(const multimap_nav::SendGoalFeedbackConstPtr &feedback)
+void feedbackCallback(const multimap_navigation::SendGoalFeedbackConstPtr &feedback)
 {
     ROS_INFO("Feedback: %s", feedback->status_msg.c_str());
 }
@@ -75,7 +75,7 @@ void sendGoal(double x_pos, double y_pos, double yaw, const std::string &map_nam
     ROS_INFO("Action server started.");
 
     // Build the goal message
-    multimap_nav::SendGoalGoal goal;
+    multimap_navigation::SendGoalGoal goal;
 
     goal.goal_pose.header.frame_id = "map";                  // Set frame of reference
     goal.goal_pose.header.stamp = ros::Time::now();          // Stamp it with current time

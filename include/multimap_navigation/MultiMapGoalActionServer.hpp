@@ -9,7 +9,7 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <nav_msgs/LoadMap.h>
-#include <multimap_nav/SendGoalAction.h>
+#include <multimap_navigation/SendGoalAction.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <tf/tf.h>
 #include <sqlite3.h>
@@ -42,13 +42,13 @@ public:
      * @brief Callback function when a new goal is received
      * @param goal Pointer to the received goal
      */
-    void executeCB(const multimap_nav::SendGoalGoalConstPtr &goal);
+    void executeCB(const multimap_navigation::SendGoalGoalConstPtr &goal);
 
 
 
 private:
     ros::NodeHandle nh_;
-    actionlib::SimpleActionServer<multimap_nav::SendGoalAction> action_server_;
+    actionlib::SimpleActionServer<multimap_navigation::SendGoalAction> action_server_;
     std::string action_name_;
 
     std::string current_map_;
